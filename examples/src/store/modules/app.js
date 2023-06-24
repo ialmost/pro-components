@@ -27,7 +27,7 @@ const App = {
     autoHideHeader: false,
     color: '',
     weak: false,
-    lang: 'en-US'
+    lang: 'zh-CN'
   },
   mutations: {
     [SIDEBAR_TYPE]: (state, type) => {
@@ -76,14 +76,16 @@ const App = {
     }
   },
   actions: {
-    setLang ({ commit }, lang) {
+    setLang({ commit }, lang) {
       return new Promise((resolve, reject) => {
         commit(APP_LANGUAGE, lang)
-        loadLanguageAsync(lang).then(() => {
-          resolve()
-        }).catch((e) => {
-          reject(e)
-        })
+        loadLanguageAsync(lang)
+          .then(() => {
+            resolve()
+          })
+          .catch((e) => {
+            reject(e)
+          })
       })
     }
   }
