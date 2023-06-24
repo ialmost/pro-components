@@ -24,7 +24,7 @@ export const BasicLayoutProps = {
   disableMobile: PropTypes.bool.def(false),
   mediaQuery: PropTypes.object.def({}),
   handleMediaQuery: PropTypes.func,
-  footerRender: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]).def(undefined),
+  footerRender: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]).def(undefined)
 }
 
 const MediaQueryEnum = {
@@ -52,14 +52,9 @@ const MediaQueryEnum = {
   }
 }
 
-const getPaddingLeft = (
-  hasLeftPadding,
-  collapsed = undefined,
-  collapsedWidth,
-  siderWidth
-) => {
+const getPaddingLeft = (hasLeftPadding, collapsed = undefined, collapsedWidth, siderWidth) => {
   if (hasLeftPadding) {
-    return collapsed ? collapsedWidth ? collapsedWidth: 80 : siderWidth
+    return collapsed ? (collapsedWidth ? collapsedWidth : 80) : siderWidth
   }
   return 0
 }
@@ -68,7 +63,7 @@ const headerRender = (h, props) => {
   if (props.headerRender === false) {
     return null
   }
-  return <HeaderView { ...{ props } } />
+  return <HeaderView {...{ props }} />
 }
 
 const defaultI18nRender = (key) => key
@@ -77,7 +72,7 @@ const BasicLayout = {
   name: 'BasicLayout',
   functional: true,
   props: BasicLayoutProps,
-  render (h, content) {
+  render(h, content) {
     const { props, children, listeners } = content
     const {
       layout,
@@ -116,41 +111,40 @@ const BasicLayout = {
       breadcrumbRender,
       headerContentRender,
       menuRender,
-      ...listeners,
+      ...listeners
     }
 
     return (
       <ConfigProvider i18nRender={i18nRender} contentWidth={props.contentWidth} breadcrumbRender={breadcrumbRender}>
         <ContainerQuery query={MediaQueryEnum} onChange={handleMediaQuery}>
-          <Layout class={{
-            'ant-pro-basicLayout': true,
-            'ant-pro-topmenu': isTopMenu,
-            ...mediaQuery
-          }}>
-            <SiderMenuWrapper
-              { ...{ props: cdProps } }
-              collapsed={collapsed}
-              onCollapse={handleCollapse}
-            />
-            <Layout class={[layout]} style={{
-              paddingLeft: hasSiderMenu
-                ? `${getPaddingLeft(!!hasLeftPadding, collapsed, collapsedWidth, siderWidth)}px`
-                : undefined,
-              minHeight: '100vh'
-            }}>
+          <Layout
+            class={{
+              'ant-pro-basicLayout': true,
+              'ant-pro-topmenu': isTopMenu,
+              ...mediaQuery
+            }}
+          >
+            <SiderMenuWrapper {...{ props: cdProps }} collapsed={collapsed} onCollapse={handleCollapse} />
+            <Layout
+              class={[layout]}
+              style={{
+                paddingLeft: hasSiderMenu
+                  ? `${getPaddingLeft(!!hasLeftPadding, collapsed, collapsedWidth, siderWidth)}px`
+                  : undefined,
+                minHeight: '100vh'
+              }}
+            >
               {headerRender(h, {
                 ...cdProps,
-                mode: 'horizontal',
+                mode: 'horizontal'
               })}
               <WrapContent class="ant-pro-basicLayout-content" contentWidth={props.contentWidth}>
                 {children}
               </WrapContent>
-              { footerRender !== false && (
-                <Layout.Footer>
-                  { isFun(footerRender) && footerRender(h) || footerRender }
-                </Layout.Footer>
-                ) || null
-              }
+              {(footerRender !== false && (
+                <Layout.Footer>{(isFun(footerRender) && footerRender(h)) || footerRender}</Layout.Footer>
+              )) ||
+                null}
             </Layout>
           </Layout>
         </ContainerQuery>
@@ -159,7 +153,7 @@ const BasicLayout = {
   }
 }
 
-BasicLayout.install = function (Vue) {
+BasicLayout.install = function(Vue) {
   Vue.component(PageHeaderWrapper.name, PageHeaderWrapper)
   Vue.component('PageContainer', PageHeaderWrapper)
   Vue.component('ProLayout', BasicLayout)

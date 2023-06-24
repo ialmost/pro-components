@@ -1,11 +1,10 @@
-@import "~ant-design-vue/es/style/themes/default";
+@import '~ant-design-vue/es/style/themes/default';
 
 @basicLayout-prefix-cls: ~'@{ant-prefix}-pro-basicLayout';
 @sider-menu-prefix-cls: ~'@{ant-prefix}-pro-sider-menu';
 @nav-header-height: @layout-header-height;
 
 .@{basicLayout-prefix-cls} {
-
   &:not('.ant-pro-basicLayout-mobile') {
     ::-webkit-scrollbar {
       width: 6px;
@@ -43,10 +42,10 @@
 
   &-content {
     position: relative;
-    margin: 24px;
+    margin: 10px;
     transition: all 0.2s;
     .@{ant-prefix}-pro-page-header-wrap {
-      margin: -24px -24px 0;
+      margin: -10px -10px 0;
     }
     &-disable-margin {
       margin: 0;
@@ -74,24 +73,6 @@
 
     &:hover {
       color: #1890ff;
-    }
-  }
-
-  &-content {
-    position: relative;
-    margin: 24px;
-    transition: all 0.2s;
-    .@{ant-prefix}-pro-page-header-wrap {
-      margin: -24px -24px 0;
-    }
-    &-disable-margin {
-      margin: 0;
-      > div > .@{ant-prefix}-pro-page-header-wrap {
-        margin: 0;
-      }
-    }
-    > .ant-layout {
-      max-height: 100%;
     }
   }
 
