@@ -95,6 +95,7 @@ const BasicLayout = {
     const breadcrumbRender = getComponentFromProp(content, 'breadcrumbRender')
     const headerContentRender = getComponentFromProp(content, 'headerContentRender')
     const menuRender = getComponentFromProp(content, 'menuRender')
+    const tabsRender = getComponentFromProp(content, 'tabsRender')
 
     const isTopMenu = layout === 'topmenu'
     const hasSiderMenu = !isTopMenu
@@ -138,10 +139,14 @@ const BasicLayout = {
                 ...cdProps,
                 mode: 'horizontal'
               })}
-              <WrapContent class="ant-pro-basicLayout-content" contentWidth={props.contentWidth}>
+              <WrapContent
+                class="ant-pro-basicLayout-content"
+                contentWidth={props.contentWidth}
+                tabsRender={tabsRender}
+              >
                 {children}
               </WrapContent>
-              {(footerRender !== false && (
+              {(footerRender && footerRender !== false && (
                 <Layout.Footer>{(isFun(footerRender) && footerRender(h)) || footerRender}</Layout.Footer>
               )) ||
                 null}
